@@ -1,0 +1,959 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Patricia Bueno Queiroz | Data & BI Analyst</title>
+<meta name="description" content="Data & Business Intelligence Analyst especializada em dashboards que a liderança realmente usa. Disponível CLT ou PJ — Jundiaí, SP.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --surface: #1e1e2a;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text: #f0ede8;
+    --text-muted: #8c8a9e;
+    --text-dim: #4a4860;
+    --accent: #c8a96e;
+    --accent2: #7b8fe8;
+    --accent3: #5ecba1;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-cta {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    border: 1px solid var(--accent);
+    padding: 7px 18px;
+    border-radius: 2px;
+    transition: all 0.2s;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-cta:hover {
+    background: var(--accent);
+    color: var(--bg);
+  }
+
+  /* ── HERO ────────────────────────────────────── */
+  #hero {
+    min-height: 100vh;
+    padding: 120px 2.5rem 80px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .hero-bg-glow {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+    top: 50%;
+    right: -100px;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  .hero-content { position: relative; z-index: 1; }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1.5rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h1.hero-name {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5.5rem);
+    line-height: 1.0;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.25rem;
+  }
+
+  h1.hero-name em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-role {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+  }
+
+  .hero-statement {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    max-width: 440px;
+    margin-bottom: 2.5rem;
+  }
+
+  .hero-statement strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .hero-availability {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent3);
+    letter-spacing: 0.06em;
+    margin-bottom: 2.5rem;
+  }
+
+  .dot-live {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent3);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    transition: all 0.2s;
+    letter-spacing: 0.02em;
+  }
+
+  .btn-primary:hover {
+    background: #d9bc84;
+    transform: translateY(-1px);
+  }
+
+  .btn-ghost {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 500;
+    padding: 14px 28px;
+    border-radius: 3px;
+    border: 1px solid var(--border-hover);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-ghost:hover {
+    border-color: var(--text-muted);
+    color: var(--text);
+  }
+
+  /* Hero right — stats */
+  .hero-stats {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem 1.75rem;
+    transition: border-color 0.2s;
+  }
+
+  .stat-card:hover { border-color: var(--border-hover); }
+
+  .stat-number {
+    font-family: var(--serif);
+    font-size: 3rem;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.25rem;
+  }
+
+  .stat-label {
+    font-size: 14px;
+    color: var(--text-muted);
+  }
+
+  .stat-card.accent-card {
+    border-color: rgba(200,169,110,0.2);
+    background: rgba(200,169,110,0.04);
+  }
+
+  /* ── SECTION COMMON ──────────────────────────── */
+  section { padding: 100px 2.5rem; }
+
+  .section-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-tag::before {
+    content: '';
+    display: block;
+    width: 20px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h2.section-title {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+
+  h2.section-title em { color: var(--accent); font-style: italic; }
+
+  .section-subtitle {
+    font-size: 1.05rem;
+    color: var(--text-muted);
+    max-width: 540px;
+    line-height: 1.75;
+  }
+
+  .section-header { margin-bottom: 4rem; }
+
+  /* ── SKILLS ──────────────────────────────────── */
+  #skills { background: var(--bg2); }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  .skill-group {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .skill-group:hover { border-color: var(--border-hover); }
+
+  .skill-group-title {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 1rem;
+  }
+
+  .skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--text-muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 5px 12px;
+    border-radius: 2px;
+    transition: all 0.2s;
+  }
+
+  .skill-tag:hover {
+    color: var(--text);
+    border-color: var(--border-hover);
+  }
+
+  /* ── PROJECTS ────────────────────────────────── */
+  #projetos { background: var(--bg); }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+
+  .project-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .project-card:hover {
+    border-color: rgba(200,169,110,0.3);
+    transform: translateY(-4px);
+  }
+
+  .project-img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg3);
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .project-img-placeholder {
+    font-family: var(--serif);
+    font-size: 3.5rem;
+    opacity: 0.12;
+    color: var(--accent);
+  }
+
+  .project-domain-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 2px;
+    background: rgba(10,10,15,0.8);
+    border: 1px solid var(--border-hover);
+    color: var(--accent);
+  }
+
+  .project-body { padding: 1.5rem; flex: 1; display: flex; flex-direction: column; }
+
+  .project-title {
+    font-family: var(--serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    flex: 1;
+  }
+
+  .project-impact {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--accent3);
+    letter-spacing: 0.06em;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .project-impact::before {
+    content: '↗';
+    font-size: 13px;
+  }
+
+  .project-tools {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .tool-tag {
+    font-family: var(--mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 2px;
+    background: rgba(123,143,232,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(123,143,232,0.15);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── SOBRE ───────────────────────────────────── */
+  #sobre { background: var(--bg2); }
+
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6rem;
+    align-items: start;
+  }
+
+  .sobre-text p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    font-size: 1.025rem;
+  }
+
+  .sobre-text p strong { color: var(--text); font-weight: 500; }
+
+  .sobre-details { display: flex; flex-direction: column; gap: 1.5rem; }
+
+  .detail-item {
+    padding: 1.25rem 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: border-color 0.2s;
+  }
+
+  .detail-item:hover { border-color: var(--border-hover); }
+
+  .detail-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.25rem;
+  }
+
+  .detail-value {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .detail-value.available {
+    color: var(--accent3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* ── CONTATO ─────────────────────────────────── */
+  #contato {
+    background: var(--bg);
+    border-top: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .contato-inner { max-width: 640px; margin: 0 auto; }
+
+  .contato-statement {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+  }
+
+  .contato-statement em { color: var(--accent); font-style: italic; }
+
+  .contato-desc {
+    font-size: 1rem;
+    color: var(--text-muted);
+    margin-bottom: 3rem;
+    line-height: 1.7;
+  }
+
+  .contact-links {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+  }
+
+  .contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text-muted);
+    text-decoration: none;
+    padding: 12px 20px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    transition: all 0.2s;
+    letter-spacing: 0.04em;
+  }
+
+  .contact-link:hover {
+    border-color: var(--border-hover);
+    color: var(--text);
+  }
+
+  .contact-link svg {
+    width: 16px;
+    height: 16px;
+    opacity: 0.7;
+  }
+
+  .contact-link.primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+
+  .contact-link.primary:hover {
+    background: #d9bc84;
+    border-color: #d9bc84;
+  }
+
+  .contact-link.primary svg { opacity: 1; }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--accent); }
+
+  /* ── DIVIDER ─────────────────────────────────── */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: var(--border);
+    margin: 0;
+  }
+
+  /* ── FADE-IN ANIMATIONS ──────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+
+  .fade-up.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 900px) {
+    #hero { grid-template-columns: 1fr; gap: 3rem; }
+    .hero-stats { flex-direction: row; flex-wrap: wrap; }
+    .stat-card { flex: 1; min-width: 140px; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .sobre-grid { grid-template-columns: 1fr; gap: 3rem; }
+    nav { padding: 0 1.5rem; }
+    .nav-links { display: none; }
+    section { padding: 70px 1.5rem; }
+    #hero { padding: 100px 1.5rem 60px; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .projects-grid { grid-template-columns: 1fr; }
+    .hero-actions { flex-direction: column; }
+    .contact-links { flex-direction: column; align-items: center; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="#hero">pbq.dev</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Stack</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+  <a class="nav-cta" href="mailto:pbuenoqueiroz@gmail.com?subject=Portfólio de Dados | Interesse Profissional">Fale comigo</a>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-glow"></div>
+
+  <div class="hero-content fade-up">
+    <div class="hero-tag">Data &amp; Business Intelligence</div>
+    <h1 class="hero-name">Patricia<br><em>Bueno</em><br>Queiroz</h1>
+    <p class="hero-role">Data &amp; BI Analyst</p>
+    <p class="hero-statement">
+      Transformo dados brutos em <strong>decisões concretas</strong>.<br>
+      Meu foco não é o dado em si — é a <strong>decisão que ele precisa sustentar</strong>.
+    </p>
+    <div class="hero-availability">
+      <span class="dot-live"></span>
+      Disponível · CLT ou PJ · Remoto / Híbrido · Jundiaí, SP
+    </div>
+    <div class="hero-actions">
+      <a class="btn-primary" href="#projetos">Ver Projetos</a>
+      <a class="btn-ghost" href="https://www.linkedin.com/in/patricia-bueno-queiroz/" target="_blank" rel="noopener">LinkedIn →</a>
+    </div>
+  </div>
+
+  <div class="hero-stats fade-up" style="transition-delay:0.15s">
+    <div class="stat-card accent-card">
+      <div class="stat-number">2.7k+</div>
+      <div class="stat-label">Transações analisadas</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Domínios cobertos (Financeiro, RH, Performance)</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">3</div>
+      <div class="stat-label">Dashboards entregues — que a liderança usa</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SKILLS ────────────────────────────────────── -->
+<section id="skills">
+  <div class="section-header fade-up">
+    <div class="section-tag">Stack técnica</div>
+    <h2 class="section-title">Ferramentas &amp; <em>Habilidades</em></h2>
+    <p class="section-subtitle">Domínio end-to-end do dado: da extração à narrativa visual que orienta decisões.</p>
+  </div>
+
+  <div class="skills-grid">
+    <div class="skill-group fade-up">
+      <div class="skill-group-title">Visualização &amp; BI</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Power BI</span>
+        <span class="skill-tag">DAX</span>
+        <span class="skill-tag">Power Query</span>
+        <span class="skill-tag">Data Storytelling</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up" style="transition-delay:0.08s">
+      <div class="skill-group-title">Dados &amp; Análise</div>
+      <div class="skill-tags">
+        <span class="skill-tag">SQL</span>
+        <span class="skill-tag">Excel Avançado</span>
+        <span class="skill-tag">Análise Exploratória</span>
+        <span class="skill-tag">KPIs &amp; Métricas</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up" style="transition-delay:0.16s">
+      <div class="skill-group-title">Domínios de Negócio</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Financeiro</span>
+        <span class="skill-tag">People Analytics</span>
+        <span class="skill-tag">Performance Empresarial</span>
+        <span class="skill-tag">RH / Turnover</span>
+      </div>
+    </div>
+    <div class="skill-group fade-up" style="transition-delay:0.24s">
+      <div class="skill-group-title">Soft Skills</div>
+      <div class="skill-tags">
+        <span class="skill-tag">Comunicação com Liderança</span>
+        <span class="skill-tag">Pensamento Crítico</span>
+        <span class="skill-tag">Gestão de Projetos</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROJETOS ──────────────────────────────────── -->
+<section id="projetos">
+  <div class="section-header fade-up">
+    <div class="section-tag">Portfólio</div>
+    <h2 class="section-title">3 dashboards · <em>3 domínios</em></h2>
+    <p class="section-subtitle">Cada projeto parte de um problema real de negócio — e entrega uma resposta visual que a liderança consegue usar.</p>
+  </div>
+
+  <div class="projects-grid">
+
+    <!-- Projeto 1 -->
+    <a class="project-card fade-up"
+       href="https://sites.google.com/view/patricia-bueno-queiroz-data-bi/projetos/performance"
+       target="_blank" rel="noopener">
+      <div class="project-img">
+        <span class="project-img-placeholder">↗</span>
+        <span class="project-domain-badge">Performance</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Análise de Performance Empresarial</h3>
+        <p class="project-desc">Dashboard de desempenho por segmento, porte e indicadores críticos de operação. Visão consolidada para tomada de decisão estratégica.</p>
+        <div class="project-tools">
+          <span class="tool-tag">Power BI</span>
+          <span class="tool-tag">DAX</span>
+          <span class="tool-tag">SQL</span>
+        </div>
+        <div class="project-impact">Indicadores críticos por segmento e porte</div>
+      </div>
+    </a>
+
+    <!-- Projeto 2 -->
+    <a class="project-card fade-up" style="transition-delay:0.1s"
+       href="https://sites.google.com/view/patricia-bueno-queiroz-data-bi/projetos/financeiro"
+       target="_blank" rel="noopener">
+      <div class="project-img">
+        <span class="project-img-placeholder">$</span>
+        <span class="project-domain-badge">Financeiro</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">Dashboard Financeiro</h3>
+        <p class="project-desc">Monitoramento de receita, margem e meios de pagamento com meta de rentabilidade definida. Visão que conecta resultado à operação.</p>
+        <div class="project-tools">
+          <span class="tool-tag">Power BI</span>
+          <span class="tool-tag">DAX</span>
+          <span class="tool-tag">Power Query</span>
+        </div>
+        <div class="project-impact">Margem e rentabilidade em tempo real</div>
+      </div>
+    </a>
+
+    <!-- Projeto 3 -->
+    <a class="project-card fade-up" style="transition-delay:0.2s"
+       href="https://sites.google.com/view/patricia-bueno-queiroz-data-bi/projetos/people-analytics"
+       target="_blank" rel="noopener">
+      <div class="project-img">
+        <span class="project-img-placeholder">♟</span>
+        <span class="project-domain-badge">People Analytics</span>
+      </div>
+      <div class="project-body">
+        <h3 class="project-title">People Analytics — RH</h3>
+        <p class="project-desc">Diagnóstico de turnover, defasagem salarial e projeção de impacto financeiro em 90 dias. Dados que sustentam decisões de retenção.</p>
+        <div class="project-tools">
+          <span class="tool-tag">Power BI</span>
+          <span class="tool-tag">Excel</span>
+          <span class="tool-tag">DAX</span>
+        </div>
+        <div class="project-impact">Projeção de impacto financeiro em 90 dias</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ── SOBRE ─────────────────────────────────────── -->
+<section id="sobre">
+  <div class="sobre-grid">
+    <div class="fade-up">
+      <div class="section-tag">Sobre</div>
+      <h2 class="section-title">Curiosa por natureza,<br><em>analítica por prática</em></h2>
+      <div class="sobre-text" style="margin-top: 1.75rem;">
+        <p>Sou analista de dados com foco em <strong>Business Intelligence</strong> e na criação de dashboards que a liderança realmente usa — não apenas visualizações bonitas.</p>
+        <p>Minha abordagem começa sempre pela pergunta de negócio: <strong>qual decisão precisa ser tomada?</strong> A partir daí, estruturo o dado, defino os indicadores corretos e entrego um painel que responde com clareza.</p>
+        <p>Tenho experiência nos domínios de <strong>Performance Empresarial, Financeiro e People Analytics</strong>, com domínio de ponta a ponta: da extração e modelagem de dados até a apresentação para lideranças.</p>
+      </div>
+    </div>
+
+    <div class="sobre-details fade-up" style="transition-delay:0.15s; padding-top: 5rem;">
+      <div class="detail-item">
+        <div class="detail-label">Localização</div>
+        <div class="detail-value">Jundiaí, SP — Grande São Paulo</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Regime de Trabalho</div>
+        <div class="detail-value">CLT ou PJ · Remoto ou Híbrido</div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">Status</div>
+        <div class="detail-value available">
+          <span class="dot-live"></span>
+          Disponível para novas oportunidades
+        </div>
+      </div>
+      <div class="detail-item">
+        <div class="detail-label">E-mail</div>
+        <div class="detail-value">
+          <a href="mailto:pbuenoqueiroz@gmail.com" style="color: var(--accent); text-decoration: none;">pbuenoqueiroz@gmail.com</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CONTATO ───────────────────────────────────── -->
+<section id="contato">
+  <div class="contato-inner">
+    <div class="fade-up">
+      <div class="section-tag" style="justify-content: center;">Vamos conversar</div>
+      <p class="contato-statement">
+        Precisa de um dashboard que a<br><em>liderança realmente use?</em>
+      </p>
+      <p class="contato-desc">
+        Se você tem dados mas falta clareza para decidir — ou tem dashboards que ninguém abre — me chama. Posso ajudar.
+      </p>
+    </div>
+
+    <div class="contact-links fade-up" style="transition-delay:0.1s">
+      <a class="contact-link primary" href="https://wa.me/5511996875230" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.558 4.116 1.534 5.842L.054 23.447a.75.75 0 00.922.922l5.604-1.48A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22.5A10.454 10.454 0 016.6 20.875l-.4-.237-4.147 1.094 1.095-4.046-.258-.416A10.454 10.454 0 011.5 12C1.5 6.21 6.21 1.5 12 1.5S22.5 6.21 22.5 12 17.79 22.5 12 22.5z"/></svg>
+        WhatsApp
+      </a>
+      <a class="contact-link" href="mailto:pbuenoqueiroz@gmail.com?subject=Portfólio de Dados | Interesse Profissional" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 01-2.06 0L2 7"/></svg>
+        E-mail
+      </a>
+      <a class="contact-link" href="https://www.linkedin.com/in/patricia-bueno-queiroz/" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+        LinkedIn
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────────── -->
+<footer>
+  <span>© 2025 Patricia Bueno Queiroz</span>
+  <span>Data &amp; BI Analyst · Jundiaí, SP</span>
+  <a href="#hero">Voltar ao topo ↑</a>
+</footer>
+
+<script>
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>

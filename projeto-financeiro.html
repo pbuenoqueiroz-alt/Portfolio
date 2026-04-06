@@ -433,6 +433,51 @@
     color: var(--accent);
   }
 
+  /* ── POWERBI SHOWCASE ────────────────────────── */
+  .powerbi-showcase {
+    width: 100%;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    overflow: hidden;
+    margin-top: 2rem;
+    position: relative;
+    min-height: 600px;
+  }
+
+  .powerbi-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .powerbi-iframe {
+    width: 100%;
+    height: 600px;
+    border: none;
+    border-radius: 6px;
+  }
+
+  .powerbi-loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 600px;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+  }
+
+  .powerbi-notice {
+    background: rgba(200, 169, 110, 0.1);
+    border: 1px solid rgba(200, 169, 110, 0.2);
+    border-radius: 6px;
+    padding: 1rem;
+    margin-top: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
   /* ── TECH STACK ──────────────────────────────– */
   .tech-stack {
     display: flex;
@@ -537,6 +582,9 @@
     .project-meta { flex-direction: column; gap: 1rem; }
     .cta-section { padding: 2rem 1.5rem; }
     .cta-actions { flex-direction: column; }
+    .powerbi-iframe {
+      height: 400px;
+    }
   }
 </style>
 </head>
@@ -652,10 +700,38 @@
   </div>
 </section>
 
-<!-- ── INSIGHTS ────────────────────────────────── -->
+<!-- ── DASHBOARD INTERATIVO ────────────────────– -->
 <section class="section-light">
   <div class="section-content fade-up">
-    <div class="section-label">04. Principais Insights</div>
+    <div class="section-label">04. Dashboard Interativo</div>
+    <h2 class="section-heading">Explore os dados financeiros em <em>tempo real</em></h2>
+    
+    <p style="color: var(--text-muted); margin-top: 1.5rem; font-size: 1.025rem;">
+      Abaixo você encontra o dashboard financeiro completo em Power BI. Interaja com os gráficos, aplique filtros por período, produto e meio de pagamento para entender a rentabilidade:
+    </p>
+
+    <div class="powerbi-showcase fade-up">
+      <div class="powerbi-container">
+        <iframe 
+          class="powerbi-iframe"
+          src="https://app.powerbi.com/view?r=eyJrIjoiNzM5NzAzMDAtYjk0Yy00MWQ1LWE0MjUtMTNhYjFhMzI1ZDA1IiwidCI6ImQ1YzI1MjFmLWUxMGUtNDA3MS1hY2MxLWI5NmZhYmQ5MTZmZSJ9"
+          allowFullScreen="true"
+          frameborder="0"
+          scrolling="no">
+        </iframe>
+      </div>
+    </div>
+
+    <div class="powerbi-notice">
+      <strong>💡 Dica:</strong> Use os filtros do dashboard para explorar rentabilidade por produto, meio de pagamento e período. Clique nos elementos para identificar oportunidades de aumento de margem.
+    </div>
+  </div>
+</section>
+
+<!-- ── INSIGHTS ────────────────────────────────── -->
+<section class="section-dark">
+  <div class="section-content fade-up">
+    <div class="section-label">05. Principais Insights</div>
     <h2 class="section-heading">Descobertas que <em>impactam resultado</em></h2>
     
     <div class="insights-list">
@@ -695,9 +771,9 @@
 </section>
 
 <!-- ── TECNOLOGIA ──────────────────────────────– -->
-<section class="section-dark">
+<section class="section-light">
   <div class="section-content fade-up">
-    <div class="section-label">05. Stack Técnico</div>
+    <div class="section-label">06. Stack Técnico</div>
     <h2 class="section-heading">Ferramentas &amp; <em>Integração</em></h2>
     
     <div class="content-grid">
@@ -721,9 +797,9 @@
 </section>
 
 <!-- ── ANTES & DEPOIS ──────────────────────────– -->
-<section class="section-light">
+<section class="section-dark">
   <div class="section-content fade-up">
-    <div class="section-label">06. Impacto</div>
+    <div class="section-label">07. Impacto</div>
     <h2 class="section-heading">Antes e <em>Depois</em></h2>
     
     <div class="content-grid">
@@ -775,7 +851,7 @@
 </section>
 
 <!-- ── CTA ─────────────────────────────────────– -->
-<section class="section-dark">
+<section class="section-light">
   <div class="section-content">
     <div class="cta-section fade-up">
       <h3>Seu financeiro merece visibilidade em tempo real</h3>

@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>People Analytics RH | Patricia Bueno Queiroz</title>
+<meta name="description" content="Case study: People Analytics com diagnóstico de turnover, defasagem salarial e projeção de impacto financeiro em 90 dias.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #1a1a24;
+    --surface: #1e1e2a;
+    --border: rgba(255,255,255,0.07);
+    --border-hover: rgba(255,255,255,0.14);
+    --text: #f0ede8;
+    --text-muted: #8c8a9e;
+    --text-dim: #4a4860;
+    --accent: #c8a96e;
+    --accent2: #7b8fe8;
+    --accent3: #5ecba1;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'DM Sans', system-ui, sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ─────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 2.5rem;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(10,10,15,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .nav-logo-sep {
+    width: 1px;
+    height: 20px;
+    background: var(--border);
+  }
+
+  .nav-logo span {
+    color: var(--text-muted);
+    font-size: 11px;
+  }
+
+  .nav-back {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .nav-back:hover {
+    color: var(--text);
+    transform: translateX(-2px);
+  }
+
+  /* ── BOTÕES ──────────────────────────────────── */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--sans);
+    font-weight: 600;
+    padding: 14px 28px;
+    border-radius: 3px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    outline: none;
+    position: relative;
+    overflow: hidden;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+  }
+
+  .btn-primary:hover {
+    background: #d9bc84;
+    border-color: #d9bc84;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(200, 169, 110, 0.15);
+  }
+
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 8px rgba(200, 169, 110, 0.2);
+  }
+
+  .btn-ghost {
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-hover);
+  }
+
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent);
+    color: var(--text);
+    transform: translateY(-2px);
+  }
+
+  /* ── HEADER ──────────────────────────────────── */
+  .project-header {
+    min-height: 80vh;
+    padding: 120px 2.5rem 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 60px 60px;
+    pointer-events: none;
+  }
+
+  .project-header::after {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,169,110,0.06) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+
+  .project-header-content { position: relative; z-index: 1; max-width: 800px; }
+
+  .project-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  .project-tag::before {
+    content: '';
+    display: block;
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  .project-title-main {
+    font-family: var(--serif);
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    line-height: 1.15;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .project-title-main em { font-style: italic; color: var(--accent); }
+
+  .project-subtitle {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+  }
+
+  .project-meta {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .meta-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+  }
+
+  .meta-value {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  /* ── SEÇÕES ──────────────────────────────────── */
+  section { padding: 100px 2.5rem; }
+  .section-dark { background: var(--bg2); }
+  .section-light { background: var(--bg); }
+
+  .section-content {
+    max-width: 1000px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 1rem;
+  }
+
+  .section-heading {
+    font-family: var(--serif);
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+  }
+
+  .section-heading em { color: var(--accent); font-style: italic; }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+    margin-top: 3rem;
+  }
+
+  .content-text p {
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 1.5rem;
+    font-size: 1.025rem;
+  }
+
+  .content-text strong { color: var(--text); font-weight: 500; }
+
+  .content-highlight {
+    background: rgba(200,169,110,0.08);
+    border: 1px solid rgba(200,169,110,0.2);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .content-highlight .highlight-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+  }
+
+  .content-highlight p { margin-bottom: 0; }
+
+  /* ── KPI CARDS ───────────────────────────────── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .kpi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.5rem;
+    transition: all 0.2s;
+  }
+
+  .kpi-card:hover {
+    border-color: var(--border-hover);
+    transform: translateY(-2px);
+  }
+
+  .kpi-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .kpi-value {
+    font-family: var(--serif);
+    font-size: 2.5rem;
+    font-weight: 400;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .kpi-context {
+    font-size: 13px;
+    color: var(--text-muted);
+  }
+
+  /* ── INSIGHTS ────────────────────────────────── */
+  .insights-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .insight-item {
+    display: flex;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    transition: all 0.2s;
+  }
+
+  .insight-item:hover {
+    border-color: var(--border-hover);
+    background: rgba(255,255,255,0.02);
+  }
+
+  .insight-icon {
+    font-size: 1.5rem;
+    min-width: 40px;
+    text-align: center;
+  }
+
+  .insight-content h3 {
+    font-family: var(--serif);
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+
+  .insight-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+  }
+
+  /* ── IMAGE SHOWCASE ──────────────────────────── */
+  .image-showcase {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin-top: 2rem;
+    position: relative;
+  }
+
+  .image-showcase img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .image-placeholder {
+    font-size: 4rem;
+    opacity: 0.2;
+    color: var(--accent);
+  }
+
+  /* ── TECH STACK ──────────────────────────────── */
+  .tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  .tech-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    padding: 6px 14px;
+    border-radius: 3px;
+    background: rgba(123,143,232,0.1);
+    color: var(--accent2);
+    border: 1px solid rgba(123,143,232,0.2);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── CTA ─────────────────────────────────────── */
+  .cta-section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3rem;
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .cta-section h3 {
+    font-family: var(--serif);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 1rem;
+  }
+
+  .cta-section p {
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* ── FOOTER ──────────────────────────────────── */
+  footer {
+    background: var(--bg2);
+    border-top: 1px solid var(--border);
+    padding: 2rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+  }
+
+  footer a { color: var(--text-dim); text-decoration: none; transition: color 0.2s; }
+  footer a:hover { color: var(--accent); }
+
+  /* ── FADE-IN ─────────────────────────────────── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(24px);
+    animation: fadeUp 0.7s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0s; }
+  .fade-up:nth-child(2) { animation-delay: 0.1s; }
+  .fade-up:nth-child(3) { animation-delay: 0.2s; }
+  .fade-up:nth-child(4) { animation-delay: 0.3s; }
+  .fade-up:nth-child(5) { animation-delay: 0.4s; }
+
+  /* ── RESPONSIVE ──────────────────────────────── */
+  @media (max-width: 900px) {
+    .content-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .project-meta { gap: 1.5rem; }
+    nav { padding: 0 1.5rem; }
+    section { padding: 70px 1.5rem; }
+    .project-header { padding: 100px 1.5rem 60px; }
+    footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  }
+
+  @media (max-width: 600px) {
+    .kpi-grid { grid-template-columns: 1fr; }
+    .project-meta { flex-direction: column; gap: 1rem; }
+    .cta-section { padding: 2rem 1.5rem; }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ── NAV ──────────────────────────────────────── -->
+<nav>
+  <a class="nav-logo" href="index.html">pbq.dev<span class="nav-logo-sep"></span><span>Case Study</span></a>
+  <a class="nav-back" href="index.html">← Voltar</a>
+</nav>
+
+<!-- ── HEADER ──────────────────────────────────── -->
+<header class="project-header">
+  <div class="project-header-content fade-up">
+    <div class="project-tag">Domínio: People Analytics</div>
+    <h1 class="project-title-main">People Analytics <em>RH</em></h1>
+    <p class="project-subtitle">Diagnóstico de turnover e defasagem salarial com projeção de impacto financeiro. Dados que sustentam decisões de retenção.</p>
+    
+    <div class="project-meta">
+      <div class="meta-item">
+        <span class="meta-label">Contexto</span>
+        <span class="meta-value">Empresa em crescimento acelerado</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Desafio</span>
+        <span class="meta-value">Turnover acima do esperado em 2 áreas</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-label">Resultado</span>
+        <span class="meta-value">Retenção aumentou 18% em 3 meses</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── PROBLEMA ────────────────────────────────── -->
+<section class="section-dark">
+  <div class="section-content fade-up">
+    <div class="section-label">01. Contexto</div>
+    <h2 class="section-heading">O desafio de <em>retenção</em></h2>
+    
+    <div class="content-grid">
+      <div class="content-text">
+        <p>A empresa percebia <strong>aumento anormal de turnover</strong> em 2 áreas críticas, mas não tinha dados consolidados para entender o padrão.</p>
+        <p>Dados sobre turnover estavam em <strong>múltiplas planilhas</strong> — folha de ponto, DP, HRIS — e a visão de impacto financeiro era zero.</p>
+        <p>RH gastava tempo em análises manuais em vez de tomar ação estratégica de retenção baseada em dados.</p>
+      </div>
+      <div class="content-highlight">
+        <div class="highlight-label">💡 O Insight</div>
+        <p>Dados de RH não são só administrativos. Turnover tem custo real. Análise correta = retenção estratégica.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SOLUÇÃO ─────────────────────────────────── -->
+<section class="section-light">
+  <div class="section-content fade-up">
+    <div class="section-label">02. Solução</div>
+    <h2 class="section-heading">Arquitetura de <em>People Analytics</em></h2>
+    
+    <div class="content-grid">
+      <div class="content-text">
+        <p><strong>1. Integração HRIS:</strong> Consolidação de dados de pessoas, histórico de saídas, salários e departamentos.</p>
+        <p><strong>2. Dimensões analíticas:</strong> Tempo (mensal/trimestral), departamento, senioridade, faixa salarial, motivo de saída.</p>
+        <p><strong>3. Cálculo de impacto:</strong> Custo de reposição (búsqueda, admissão, onboarding, produção reduzida).</p>
+        <p><strong>4. Análise de defasagem:</strong> Comparação de salários internos vs mercado por faixa/departamento.</p>
+      </div>
+      <div class="content-highlight">
+        <div class="highlight-label">🎯 Resultado esperado</div>
+        <p>Dashboard que projeta turnover nos próximos 90 dias. Identifica departamentos em risco. Subsidia decisões de remuneração.</p>
+      </div>
+    </div>
+
+    <div class="image-showcase fade-up">
+      <span class="image-placeholder">👥</span>
+    </div>
+  </div>
+</section>
+
+<!-- ── KPIs ────────────────────────────────────── -->
+<section class="section-dark">
+  <div class="section-content fade-up">
+    <div class="section-label">03. Indicadores</div>
+    <h2 class="section-heading">Métricas de <em>retenção</em></h2>
+    
+    <div class="kpi-grid">
+      <div class="kpi-card fade-up">
+        <div class="kpi-label">Taxa de Turnover</div>
+        <div class="kpi-value">12%</div>
+        <div class="kpi-context">Acima da meta de 8% — ação urgente</div>
+      </div>
+      
+      <div class="kpi-card fade-up">
+        <div class="kpi-label">Defasagem Salarial</div>
+        <div class="kpi-value">-8%</div>
+        <div class="kpi-context">Abaixo de mercado em TI e Operações</div>
+      </div>
+      
+      <div class="kpi-card fade-up">
+        <div class="kpi-label">Impacto Financeiro em 90d</div>
+        <div class="kpi-value">R$180k</div>
+        <div class="kpi-context">Custo de reposição projetado</div>
+      </div>
+      
+      <div class="kpi-card fade-up">
+        <div class="kpi-label">Tempo Médio de Ocupação</div>
+        <div class="kpi-value">32 dias</div>
+        <div class="kpi-context">De demissão até nova contratação</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSIGHTS ────────────────────────────────── -->
+<section class="section-light">
+  <div class="section-content fade-up">
+    <div class="section-label">04. Principais Insights</div>
+    <h2 class="section-heading">Padrões de <em>risco</em></h2>
+    
+    <div class="insights-list">
+      <div class="insight-item fade-up">
+        <div class="insight-icon">🚨</div>
+        <div class="insight-content">
+          <h3>TI tem 3x mais saídas que outras áreas</h3>
+          <p>Correlação com defasagem salarial. Projeto de reajuste iniciado. Resultado: em 3 meses, turnover caiu de 22% para 9%.</p>
+        </div>
+      </div>
+      
+      <div class="insight-item fade-up">
+        <div class="insight-icon">📊</div>
+        <div class="insight-content">
+          <h3>Funcionários com até 2 anos saem 5x mais</h3>
+          <p>Padrão revelou fraqueza em onboarding/adaptação. Revisão de processo começada. Expectativa: melhoria de 30% em retentção.</p>
+        </div>
+      </div>
+      
+      <div class="insight-item fade-up">
+        <div class="insight-icon">💰</div>
+        <div class="insight-content">
+          <h3>Cada saída custa ~R$45k em reposição</h3>
+          <p>Número concreto que RH usou em argumentação para reajustes. CFO entendeu o impacto. Orçamento aprovado para retenção.</p>
+        </div>
+      </div>
+      
+      <div class="insight-item fade-up">
+        <div class="insight-icon">✓</div>
+        <div class="insight-content">
+          <h3>Projeção de risco nos próximos 90 dias</h3>
+          <p>Dashboard identifica pessoas em risco. RH faz ação preventiva (feedback, oportunidades). Retenção subiu 18% vs trimestre anterior.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TECNOLOGIA ──────────────────────────────– -->
+<section class="section-dark">
+  <div class="section-content fade-up">
+    <div class="section-label">05. Stack Técnico</div>
+    <h2 class="section-heading">Ferramentas &amp; <em>Integração</em></h2>
+    
+    <div class="content-grid">
+      <div class="content-text">
+        <p><strong>Extração:</strong> HRIS, folha de ponto, DP — consolidação em SQL</p>
+        <p><strong>Modelagem:</strong> Power BI, DAX (cálculo de impacto financeiro, análise de risco)</p>
+        <p><strong>Análise complementar:</strong> Excel para projeção de cenários</p>
+        <p><strong>Visualização:</strong> Dashboard executivo + relatório detalhado por departamento</p>
+      </div>
+      <div>
+        <div class="tech-stack">
+          <span class="tech-tag">Power BI</span>
+          <span class="tech-tag">DAX</span>
+          <span class="tech-tag">SQL</span>
+          <span class="tech-tag">Excel</span>
+          <span class="tech-tag">HRIS API</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── ANTES & DEPOIS ──────────────────────────– -->
+<section class="section-light">
+  <div class="section-content fade-up">
+    <div class="section-label">06. Impacto</div>
+    <h2 class="section-heading">Antes e <em>Depois</em></h2>
+    
+    <div class="content-grid">
+      <div class="fade-up">
+        <h3 style="font-family: var(--serif); font-size: 1.25rem; color: var(--text-muted); margin-bottom: 1.5rem;">❌ Antes</h3>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
+          <li style="color: var(--text-muted); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✗</span>
+            <span>Dados de RH fragmentados em múltiplas fontes</span>
+          </li>
+          <li style="color: var(--text-muted); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✗</span>
+            <span>Sem visibilidade de padrão de turnover</span>
+          </li>
+          <li style="color: var(--text-muted); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✗</span>
+            <span>Sem cálculo de impacto financeiro da saída</span>
+          </li>
+          <li style="color: var(--text-muted); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✗</span>
+            <span>RH reativo em vez de preventivo</span>
+          </li>
+        </ul>
+      </div>
+      
+      <div class="fade-up">
+        <h3 style="font-family: var(--serif); font-size: 1.25rem; color: var(--text); margin-bottom: 1.5rem;">✓ Depois</h3>
+        <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 1rem;">
+          <li style="color: var(--text); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✓</span>
+            <span><strong>Dashboard consolidado em tempo real</strong></span>
+          </li>
+          <li style="color: var(--text); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✓</span>
+            <span><strong>Padrões visíveis por departamento/senioridade</strong></span>
+          </li>
+          <li style="color: var(--text); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✓</span>
+            <span><strong>Custo da saída quantificado (R$45k/pessoa)</strong></span>
+          </li>
+          <li style="color: var(--text); display: flex; gap: 10px;">
+            <span style="color: var(--accent3);">✓</span>
+            <span><strong>RH proativo com ações baseadas em dados</strong></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ─────────────────────────────────────– -->
+<section class="section-dark">
+  <div class="section-content">
+    <div class="cta-section fade-up">
+      <h3>Seu RH também merece dados estratégicos</h3>
+      <p>Se você tem saídas inesperadas e sem visibilidade sobre o impacto, posso estruturar um dashboard de People Analytics que transforma RH em parceiro estratégico.</p>
+      <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+        <a href="https://wa.me/5511996875230" class="btn btn-primary" target="_blank" rel="noopener">Me chama no WhatsApp</a>
+        <a href="mailto:pbuenoqueiroz@gmail.com" class="btn btn-ghost">Enviar e-mail</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ────────────────────────────────── -->
+<footer>
+  <span>© 2025 Patricia Bueno Queiroz</span>
+  <span>Data &amp; BI Analyst · Jundiaí, SP</span>
+  <a href="index.html">← Voltar ao portfólio</a>
+</footer>
+
+</body>
+</html>
